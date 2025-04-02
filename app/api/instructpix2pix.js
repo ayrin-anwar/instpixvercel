@@ -11,7 +11,7 @@ export default async function handler(req, res) {
 
     const response_0 = await fetch(imageUrl);
     if (!response_0.ok) {
-      return res.status(400).json({ error: `Failed to fetch image from URL: ${imageUrl}` });
+      return res.status(400).json({ error: `Failed to fetch images from URL: ${imageUrl}` });
     }
     const exampleImage = await response_0.blob();
 
