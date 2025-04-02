@@ -1,8 +1,7 @@
 {
     "functions": {
-      "api/instructpix2pix.js": {
-        "memory": 512,
-        "maxDuration": 30 
+      "app/api/**/*.js": {
+        "maxDuration": 30
       }
     }
   }
