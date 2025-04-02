@@ -2,6 +2,7 @@ import { Client } from "@gradio/client";
 import { NextResponse } from 'next/server';
 
 export async function POST(req, res) { // Renamed the function to POST and added req, res (though we primarily use req)
+  console.log("API working pix2pix")
   try {
     const reqBody = await req.json(); // Use req.json() to parse the request body
     const { imageUrl, prompt } = reqBody;
