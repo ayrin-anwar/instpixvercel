@@ -1,17 +1,18 @@
 import { Client } from "@gradio/client";
+import { NextResponse } from 'next/server';
 
-export default async function handler(req, res) {
+export async function POST(req, res) { // Renamed the function to POST and added req, res (though we primarily use req)
   try {
-    // Assuming you'll send the image URL and prompt in the request body
-    const { imageUrl, prompt } = req.body;
+    const reqBody = await req.json(); // Use req.json() to parse the request body
+    const { imageUrl, prompt } = reqBody;
 
     if (!imageUrl || !prompt) {
-      return res.status(400).json({ error: "Please provide both imageUrl and prompt in the request body." });
+      return NextResponse.json({ error: "Please provide both imageUrl and prompt in the request body." }, { status: 400 });
     }
 
     const response_0 = await fetch(imageUrl);
     if (!response_0.ok) {
-      return res.status(400).json({ error: `Failed to fetch images from URL: ${imageUrl}` });
+      return NextResponse.json({ error: `Failed to fetch images from URL: ${imageUrl}` }, { status: 400 });
     }
     const exampleImage = await response_0.blob();
 
@@ -23,10 +24,10 @@ export default async function handler(req, res) {
     });
 
     // Send the result back as a JSON response
-    res.status(200).json({ data: result.data });
+    return NextResponse.json({ data: result.data });
 
   } catch (error) {
     console.error("Vercel Function Error:", error);
-    res.status(500).json({ error: error.message });
+    return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }
